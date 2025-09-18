@@ -19,3 +19,4 @@ Route::get('/show/{id}' , [\App\Http\Controllers\PostController::class, 'show'])
 
 Route::get('/comments', [\App\Http\Controllers\CommentController::class, 'index']);
 Route::get('/comments/create', [\App\Http\Controllers\CommentController::class, 'create']);
+
