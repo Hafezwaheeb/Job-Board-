@@ -1,26 +1,27 @@
-<footer class="bg-gray-800 text-white mt-auto">
-    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Job Board</h3>
-                <p class="text-gray-300">Your one-stop solution for finding the right job.</p>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">Job Board</h3>
+                <p class="footer-text">Your one-stop solution for finding the right job.</p>
             </div>
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="/" class="text-gray-300 hover:text-white">Home</a></li>
-                    <li><a href="/about" class="text-gray-300 hover:text-white">About</a></li>
-                    <li><a href="/contact" class="text-gray-300 hover:text-white">Contact</a></li>
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
-                <p class="text-gray-300">Email: info@jobboard.com</p>
-                <p class="text-gray-300">Phone: (555) 123-4567</p>
+            <div class="footer-section">
+                <h3 class="footer-title">Contact Info</h3>
+                <p class="footer-text">Email: info@jobboard.com</p>
+                <p class="footer-text">Phone: (555) 123-4567</p>
             </div>
         </div>
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-            <p class="text-gray-300">&copy; {{ date('Y') }} Job Board. All rights reserved.</p>
+        <div class="footer-bottom">
+            <p>&copy; {{ date('Y') }} Job Board. All rights reserved.</p>
         </div>
     </div>
 </footer>

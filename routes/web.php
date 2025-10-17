@@ -1,22 +1,50 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+// single action  controller
+Route::get('/', IndexController::class);
 
-Route::get('/about', [\App\Http\Controllers\IndexController::class, 'about']);
+Route::get('/contact', ContactController::class);
 
-Route::get('/contact', [\App\Http\Controllers\IndexController::class, 'contact']);
 
-Route::get('/job', [\App\Http\Controllers\JobController::class, 'index']);
+Route::get('/job', [JobController::class, 'index']);
 
-Route::get('/blog', [\App\Http\Controllers\PostController::class, 'index']);
+Route::middleware('auth')->group(function(){
 
-Route::get('/blog/create', [\App\Http\Controllers\PostController::class, 'create']);
-Route::get('/blog/delete', [\App\Http\Controllers\PostController::class, 'delete']);
-//  find a post
-Route::get('/show/{id}' , [\App\Http\Controllers\PostController::class, 'show']);
+    Route::resource('blog', PostController::class);
+});
+// Resource Controller
 
-Route::get('/comments', [\App\Http\Controllers\CommentController::class, 'index']);
-Route::get('/comments/create', [\App\Http\Controllers\CommentController::class, 'create']);
 
+// Resource Controller
+Route::resource('tags', TagController::class);
+
+
+Route::resource('comments', CommentController::class);
+
+// signup route and login route
+Route::get('/signup', [AuthController::class, 'signupForm'])->name('signup');
+Route::post('/signup', [AuthController::class, 'signup']);
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::middleware('onlyMy')->group(function(){
+
+    Route::get('/about', AboutController::class);
+});
+
+// student route
+
+
+Route::get('/student', [\App\Http\Controllers\StudentController::class, 'index']);

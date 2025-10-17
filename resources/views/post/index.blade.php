@@ -1,33 +1,38 @@
 <x-layout :title="$title">
-    <h1>Posts</h1>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-    @foreach ($posts as $post)
-        <h2>
-            {{ $post->title }}
-        </h2>
-        <p>
-            {{ $post->content }}
-        </p>
-        <p>
-            <strong>Author:</strong> {{ $post->author }}
-        </p>
-        <p>
-            <strong>Published:</strong> {{ $post->published ? 'Yes' : 'No' }}
-        </p>
-        <!-- comments  -->
-        @if ($post->comments->isNotEmpty())
-        <h3>Comments</h3>
-            <h3>Comments</h3>
-            @foreach ($post->comments as $comment)
-                <ul>
+    <div class="mb-4">
+        <a href="{{ route('blog.create') }}" class="btn btn-primary">Create New Post</a>
+    </div>
 
-                    <li>
-                        {{ $comment->content }}
-                    </li>
-                </ul>
+    <div class="post-list">
+        @foreach ($posts as $post)
+            <article class="post-card">
+                <h2 class="post-title"><a href="/blog/{{ $post->id }}">{{ $post->title }}</a></h2>
+                <p class="post-content">{{ Str::limit($post->content, 200) }}</p>
+                <div class="post-meta">
+                    <strong>Author:</strong> {{ $post->author }}
+                </div>
+                <div class="post-meta">
+                    <strong>Status:</strong> {{ $post->published ? 'Published' : 'Draft' }}
+                </div>
+                <div class="post-actions">
+                    <a href="{{ route('blog.show', $post->id) }}" class="btn btn-secondary">View</a>
+                    <a href="{{ route('blog.edit', $post->id) }}" class="btn btn-secondary">Edit</a>
+                    <form action="{{ route('blog.destroy', $post->id) }}" method="POST"
+                            onsubmit="return confirm('Are you sure you want to delete this post?');" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </article>
+        @endforeach
+    </div>
 
-            @endforeach
-        @endif
-    @endforeach
-
+    <div class="mt-4">
+        {{ $posts->links() }}
+    </div>
 </x-layout>
