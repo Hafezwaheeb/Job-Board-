@@ -15,11 +15,15 @@ class Post extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     protected $table = 'post';
-    protected $fillable = ['title', 'content', 'author', 'published'];
+    protected $fillable = ['title', 'content', 'author', 'published', 'user_id'];
 
 
     // relation with comments
     // A function that returns all comments for a post and refers to Comment model
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -29,19 +33,4 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    // Factory helper methods
-    public static function createSamplePosts($count = 5)
-    {
-        return static::factory()->count($count)->create();
-    }
-
-    public static function createPublishedPosts($count = 3)
-    {
-        return static::factory()->published()->count($count)->create();
-    }
-
-    public static function createPostWithComments($commentCount = 3)
-    {
-        return static::factory()->hasComments($commentCount)->create();
-    }
 }

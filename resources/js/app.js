@@ -2,8 +2,6 @@ import './bootstrap';
 
 
 
-dispatchEvent
-
 
 
 
